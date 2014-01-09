@@ -139,6 +139,53 @@ function getFields($pId)
 
 
 function getFieldMetaData($pId)
+{
+
+	$MyArray=explode("*",$pId);
+	$DB=$MyArray[0];	
+	$TBL=$MyArray[1];	
+	$field=$MyArray[2];	
+	$mysqli = new mysqli("localhost", "root", "password", $DB);
+	if ($mysqli->connect_errno) 
+	{
+		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+	}
+	$result = $mysqli->query("SELECT 1 AS _one, 'Hello' AS _two FROM ".$TBL);	
+	//var_dump($result->fetch_fields());
+	$result->fetch_fields();
+	//$result->fetch_fields();
+	//$i = 0;
+	while ($i < mysqli_num_fields($result)) 
+	{
+		$i++;
+		if ($i>1) 
+		{
+			echo ","; 
+		}
+		echo "	{" ;
+		echo "		\"entitytype\": \"fieldMeta\", "; 
+		//echo "		\"name\": \"Type:".$type."\", "; 
+		echo "		\"name\": \"Type:type\", "; 
+		//echo "		\"id\": \"".$DB."*".$TBL."*".$field."*".$type."\", "; 
+		echo "		\"id\": \"$DB*$TBL*$field*$type\", "; 
+		echo "		\"children\": true "; 
+		echo "	}, " ; 	
+		echo "	{" ;
+		echo "		\"entitytype\": \"fieldMeta\", "; 
+		//echo "		\"name\": \"Max Length:".$max_length."\", "; 
+		echo "		\"name\": \"Max Length:$max_length\", "; 
+		//echo "		\"id\": \"".$DB."*".$TBL."*".$field."*".$max_length."\", "; 
+		echo "		\"id\": \"".$DB."*$TBL*$field*$max_length\", "; 
+		echo "		\"children\": true "; 
+		echo "	} " ; 		
+		
+	//	echo "HI";
+	}
+	//$result->fetch_fields();
+}
+
+
+function xgetFieldMetaData($pId)
 {		
 	
 	//output($pId);
@@ -154,7 +201,13 @@ function getFieldMetaData($pId)
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
 	
-	mysql_select_db('test');
+	$db_selected=mysql_select_db('test');
+	
+	if (!$db_selected)
+	{
+		die ("Can\'t use test_db : " . mysql_error());
+	}
+	
 	$result = mysql_query("select ".$field." from ".$TBL." LIMIT 1");
 	if (!$result) 
 	{
