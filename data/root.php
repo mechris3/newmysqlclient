@@ -30,7 +30,8 @@
 
 function getDatabases()
 {	
-	$con=mysqli_connect("localhost","","");
+	//$con=mysqli_connect("127.0.0.1","","","");
+	$con=mysqli_connect("localhost","root","password","test");
 	// Check connection
 	if (mysqli_connect_errno())
 	{
@@ -61,7 +62,7 @@ function getTables($pId)
 	
 	$MyArray=explode("*",$pId);
 	$DB=$MyArray[1];	
-	$con=mysqli_connect("localhost","","");
+	$con=mysqli_connect("localhost","root","password");
 	// Check connection
 	if (mysqli_connect_errno())
 	{
@@ -102,7 +103,7 @@ function getFields($pId)
 	$TBL=$MyArray[1];	
 	//output("DB:".$DB);	
 	//output("TBL:".$TBL);	
-	$con=mysqli_connect("localhost","","",$DB);
+	$con=mysqli_connect("localhost","root","password",$DB);
 	// Check connection
 	if (mysqli_connect_errno())
 	{
@@ -146,7 +147,7 @@ function getFieldMetaData($pId)
 	$TBL=$MyArray[1];	
 	$field=$MyArray[2];	
 	
-	$con=mysqli_connect("localhost","","",$DB);
+	$con=mysqli_connect("localhost","root","password",$DB);
 	// Check connection
 	if (mysqli_connect_errno())
 	{
