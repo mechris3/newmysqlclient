@@ -4,6 +4,10 @@ dojo.require("dojox.layout.ContentPane");
 dojo.require("dijit.Menu");
 dojo.require("dijit.MenuItem");
 
+//dojo.require("dojo.dnd.Source")
+dojo.require("dijit.tree.dndSource")
+
+
 
 //dojo.require("dojo.parser");
 //dojo.require("dojo.store.Memory");
@@ -66,7 +70,8 @@ function initPage()
 
 				ready(function(){
 					tree = new Tree({ 
-						model: model,
+						model: model,	
+dndController: "dijit.tree.dndSource", 						
 						openOnClick: true,
 						getIconClass: function(pItem) 
 						{
