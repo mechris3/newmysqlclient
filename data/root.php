@@ -137,7 +137,6 @@ function getFields($pId)
 	}	
 }	
 
-
 function getFieldMetaData($pId)
 {
 
@@ -185,85 +184,7 @@ function getFieldMetaData($pId)
 }
 
 
-function xgetFieldMetaData($pId)
-{		
-	
-	//output($pId);
-	$MyArray=explode("*",$pId);
-	$DB=$MyArray[0];	
-	$TBL=$MyArray[1];	
-	$field=$MyArray[2];	
-	
-	$con=mysqli_connect("localhost","root","password",$DB);
-	// Check connection
-	if (mysqli_connect_errno())
-	{
-		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	}
-	
-	$db_selected=mysql_select_db('test');
-	
-	if (!$db_selected)
-	{
-		die ("Can\'t use test_db : " . mysql_error());
-	}
-	
-	$result = mysql_query("select ".$field." from ".$TBL." LIMIT 1");
-	if (!$result) 
-	{
-		die('Query failed: ' . mysql_error());
-	}
-	/* get column metadata */
-	$i = 0;
-	while ($i < mysql_num_fields($result)) 
-	{
-		
-		$meta = mysql_fetch_field($result, $i);
-		if (!$meta) 
-		{
-			echo "No information available<br />\n";
-		}
-		
-			$i++;
-			$type=$meta->type;
-			$max_length=$meta->max_length;
-			if ($i>1) 
-			{
-				echo ","; 
-			}
-			echo "	{" ;
-			echo "		\"entitytype\": \"fieldMeta\", "; 
-			echo "		\"name\": \"Type:".$type."\", "; 
-			echo "		\"id\": \"".$DB."*".$TBL."*".$field."*".$type."\", "; 
-			echo "		\"children\": true "; 
-			echo "	}, " ; 	
-			echo "	{" ;
-			echo "		\"entitytype\": \"fieldMeta\", "; 
-			echo "		\"name\": \"Max Length:".$max_length."\", "; 
-			echo "		\"id\": \"".$DB."*".$TBL."*".$field."*".$max_length."\", "; 
-			echo "		\"children\": true "; 
-			echo "	} " ; 				
-			$i = mysql_num_fields($result);
-		/*
-		echo "<pre>
-		blob:         $meta->blob
-		
-		multiple_key: $meta->multiple_key
-		name:         $meta->name
-		not_null:     $meta->not_null
-		numeric:      $meta->numeric
-		primary_key:  $meta->primary_key
-		table:        $meta->table
-		
-		unique_key:   $meta->unique_key
-		unsigned:     $meta->unsigned
-		zerofill:     $meta->zerofill
-		</pre>";
-		*/
-		
-	}
-mysql_free_result($result);
-}	
+
 
 function output($pString)
 {
