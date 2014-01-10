@@ -1,9 +1,12 @@
 <?php
 session_start();
-// store session data
-$_SESSION['views']=1;
 ?>
 <html>
+
+<?php
+include 'credentials.php';
+setSession();
+?>
 <head>
 <style type="text/css">
 

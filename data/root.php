@@ -1,4 +1,7 @@
 <?php
+
+	session_start();
+	
 	echo "{ ";
 	echo "\"name\": \"server\",";
 	echo "		\"entitytype\": \"server\", "; 
@@ -30,8 +33,9 @@
 
 function getDatabases()
 {	
-	//$con=mysqli_connect("127.0.0.1","","","");
-	$con=mysqli_connect("localhost","root","password","test");
+	//setSession();
+	
+	$con=mysqli_connect($_SESSION['server'],$_SESSION['username'],$_SESSION['password'],"test");
 	// Check connection
 	if (mysqli_connect_errno())
 	{
@@ -62,7 +66,7 @@ function getTables($pId)
 	
 	$MyArray=explode("*",$pId);
 	$DB=$MyArray[1];	
-	$con=mysqli_connect("localhost","root","password");
+	$con=mysqli_connect($_SESSION['server'],$_SESSION['username'],$_SESSION['password']);
 	// Check connection
 	if (mysqli_connect_errno())
 	{
@@ -103,7 +107,7 @@ function getFields($pId)
 	$TBL=$MyArray[1];	
 	//output("DB:".$DB);	
 	//output("TBL:".$TBL);	
-	$con=mysqli_connect("localhost","root","password",$DB);
+	$con=mysqli_connect($_SESSION['server'],$_SESSION['username'],$_SESSION['password'],$DB);
 	// Check connection
 	if (mysqli_connect_errno())
 	{
@@ -144,7 +148,7 @@ function getFieldMetaData($pId)
 	$DB=$MyArray[0];	
 	$TBL=$MyArray[1];	
 	$field=$MyArray[2];	
-	$mysqli = new mysqli("localhost", "root", "password", $DB);
+	$mysqli = new mysqli($_SESSION['server'],$_SESSION['username'],$_SESSION['password'], $DB);
 	if ($mysqli->connect_errno) 
 	{
 		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
@@ -162,18 +166,14 @@ function getFieldMetaData($pId)
 			echo ","; 
 		}
 		echo "	{" ;
-		echo "		\"entitytype\": \"fieldMeta\", "; 
-		//echo "		\"name\": \"Type:".$type."\", "; 
-		echo "		\"name\": \"Type:type\", "; 
-		//echo "		\"id\": \"".$DB."*".$TBL."*".$field."*".$type."\", "; 
+		echo "		\"entitytype\": \"fieldMeta\", "; 		
+		echo "		\"name\": \"Type:type\", "; 		
 		echo "		\"id\": \"$DB*$TBL*$field*$type\", "; 
 		echo "		\"children\": true "; 
 		echo "	}, " ; 	
 		echo "	{" ;
-		echo "		\"entitytype\": \"fieldMeta\", "; 
-		//echo "		\"name\": \"Max Length:".$max_length."\", "; 
-		echo "		\"name\": \"Max Length:$max_length\", "; 
-		//echo "		\"id\": \"".$DB."*".$TBL."*".$field."*".$max_length."\", "; 
+		echo "		\"entitytype\": \"fieldMeta\", "; 		
+		echo "		\"name\": \"Max Length:$max_length\", "; 		
 		echo "		\"id\": \"".$DB."*$TBL*$field*$max_length\", "; 
 		echo "		\"children\": true "; 
 		echo "	} " ; 		
