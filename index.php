@@ -6,6 +6,7 @@ $_SESSION['views']=1;
 <html>
 <head>
 <style type="text/css">
+
 @import  "javascripts/dojo183/dijit/themes/claro/claro.css" ; 
 @import  "javascripts/dojo183/dojo/resources/dojo.css";
 @import  "javascripts/dojo183/dojox/grid/resources/tundraGrid.css" ; 
