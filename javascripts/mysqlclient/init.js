@@ -71,7 +71,8 @@ function initPage()
 				ready(function(){
 					tree = new Tree({ 
 						model: model,	
-dndController: "dijit.tree.dndSource", 						
+						dndController: "dijit.tree.dndSource", 						
+						checkItemAcceptance: function() {return false},
 						openOnClick: true,
 						getIconClass: function(pItem) 
 						{

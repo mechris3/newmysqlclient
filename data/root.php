@@ -35,7 +35,7 @@ function getDatabases()
 {	
 	//setSession();
 	
-	$con=mysqli_connect($_SESSION['server'],$_SESSION['username'],$_SESSION['password'],"test");
+	$con=mysqli_connect($_SESSION['server'],$_SESSION['username'],$_SESSION['password'],$_SESSION['db']);
 	// Check connection
 	if (mysqli_connect_errno())
 	{
