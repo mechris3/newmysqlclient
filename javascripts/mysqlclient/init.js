@@ -4,7 +4,9 @@ dojo.require("dojox.layout.ContentPane");
 dojo.require("dijit.Menu");
 dojo.require("dijit.MenuItem");
 
-//dojo.require("dojo.dnd.Source")
+dojo.require("dojo.dnd.Source")
+dojo.require("dojo.dnd.common");
+dojo.require("dojo.dnd.Container");
 dojo.require("dijit.tree.dndSource")
 
 
@@ -27,7 +29,7 @@ function initPage()
 	 style:"width:350px; background-color:#D3E0ED" });
 	var cpRight = new dojox.layout.ContentPane({"title":"Settings","region":"center","class":"container", "splitter":true, style:"width:350px; background-color:#D3E0ED"} );
 	
-	cpLeft.set("content","<div id='dvTreeView' '></div>");
+	cpLeft.set("content","<div id='dvTreeView' ></div>");
 	cpRight.set("content","<div id='dvDetails'>Right</div>")
 	
 	cpRight.style.backgroundColor='red';
@@ -39,6 +41,16 @@ function initPage()
 	
 	borderLayout.startup();
 	createTree();
+		
+	dojo.byId("dvDetails").style.width="100%";
+	dojo.byId("dvDetails").style.height="100%";
+	
+	
+	var tgt = dojo.dnd.Source("dvDetails", 
+							{						
+								checkAcceptance: function(a) {console.log(a); return true },
+								accept: ["text"]
+							})
 	
  }
  
@@ -71,8 +83,9 @@ function initPage()
 				ready(function(){
 					tree = new Tree({ 
 						model: model,	
-						dndController: "dijit.tree.dndSource", 						
-						checkItemAcceptance: function() {return false},
+						dndController: "dijit.tree.dndSource", 	
+						type: "text",
+						checkAcceptance: function() {return false},
 						openOnClick: true,
 						getIconClass: function(pItem) 
 						{
