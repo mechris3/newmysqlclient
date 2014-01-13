@@ -48,12 +48,33 @@ function initPage()
 	
 	var tgt = dojo.dnd.Source("dvDetails", 
 							{						
-								checkAcceptance: function(a) {console.log(a); return true },
-								accept: ["text"]
+								
+								checkAcceptance: function(source, nodes) 
+								{ 
+									return true 
+								},
+								/*
+								checkItemAcceptance: function(a)
+								{
+									return true;
+								},
+								
+								dndAccept: function()
+								{
+									return true;
+								},*/
+								onDndDrop: function(source, nodes, copy)
+								{
+									log(source);
+									log(nodes);
+									log(copy);
+									return true;
+									
+								}
 							})
 	
  }
- 
+function log(p) {console.log(p)}
  function createTree()
  {
 	try
