@@ -92,8 +92,10 @@ function getTables($pId)
 			}
 			echo "	{" ;
 			echo "		\"entitytype\": \"table\", "; 
-			echo "		\"name\": \"".$tblName."\", "; 
+			echo "		\"name\": \"".$tblName."\", "; 					
 			echo "		\"id\": \"".$DB."*".$tblName."\", "; 
+			echo "		\"data\": \"".$DB."*".$tblName."\", "; 
+			echo "		\"item\": \"".$DB."*".$tblName."\", "; 
 			echo "		\"children\": true "; 
 			echo "	} " ; 	
 	}	

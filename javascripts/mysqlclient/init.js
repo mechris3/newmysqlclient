@@ -46,7 +46,7 @@ function initPage()
 	dojo.byId("dvDetails").style.height="100%";
 	
 	
-	var tgt = dojo.dnd.Source("dvDetails", 
+	var tgt = dojo.dnd.AutoSource("dvDetails", 
 							{						
 								
 								checkAcceptance: function(source, nodes) 
@@ -63,11 +63,11 @@ function initPage()
 								{
 									return true;
 								},*/
-								onDndDrop: function(source, nodes, copy)
+								onDrop: function(source, nodes, copy)
 								{
-									log(source);
-									log(nodes);
-									log(copy);
+																																			
+									var item = dijit.getEnclosingWidget(nodes[0]).item;
+									log(item)									
 									return true;
 									
 								}
@@ -108,10 +108,9 @@ function log(p) {console.log(p)}
 						type: "text",
 						checkAcceptance: function() {return false},
 						openOnClick: true,
-						getIconClass: function(pItem) 
-						{
-							return pItem.entitytype+"Node";							
-						}
+						dndData: "test data",	
+						data: "test data",	
+						getIconClass: function(pItem) { return pItem.entitytype+"Node";	}
 					}, "dvTreeView"); // make sure you have a target HTML element with this id
 					tree.startup();
 				});
