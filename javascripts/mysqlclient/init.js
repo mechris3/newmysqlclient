@@ -67,15 +67,28 @@ function initPage()
 								{
 																																			
 									var item = dijit.getEnclosingWidget(nodes[0]).item;
-									log(item)									
+									if (item.entitytype=="table")
+									{
+										alert("Table");
+									}
+									if (item.entitytype=="field")
+									{
+										createFieldEditForm(item)
+									}
+									log(item);
 									return true;
 									
 								}
 							})
 	
  }
+ 
+function createFieldEditForm(pID)
+{
+	alert("Edit fiedl");
+}
 function log(p) {console.log(p)}
- function createTree()
+function createTree()
  {
 	try
 	{

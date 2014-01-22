@@ -165,17 +165,37 @@ function getFieldMetaData($pId)
 	$query="SELECT ".$field." FROM ".$TBL;
 
 
+$dataType["0"]="decimal";
+$dataType["1"]="tinyint";
+$dataType["2"]="smallint";
+$dataType["3"]="int";
+$dataType["4"]="float";
+$dataType["5"]="double";
+$dataType["7"]="timestamp";
+$dataType["8"]="bigint";
+$dataType["9"]="mediumint";
+$dataType["10"]="date";
+$dataType["11"]="time";
+$dataType["12"]="datetime";
+$dataType["13"]="year";
+$dataType["14"]="new date";
+$dataType["16"]="bit";
+$dataType["253"]="varchar";
+$dataType["254"]="char";
+$dataType["246"]="decimal";
 
-
+	
+	
 
 	if ($result = mysqli_query($mysqli, $query)) {
 
 		/* Get field information for column 'SurfaceArea' */
 		$finfo = mysqli_fetch_field_direct($result, 0);
-		
+		$dType=$dataType[$finfo->type];
+		if ($dType=="") $dType=$finfo->type;
 		echo "{";		
 		echo "		\"entitytype\": \"fieldMeta\", "; 		
-		echo "		\"name\": \"Type:".$finfo->type."\", "; 		
+		echo "		\"name\": \"Type:".$dType."\", "; 		
 		echo "		\"id\": \"$DB*$TBL*$field*$type\", "; 
 		echo "		\"children\": false "; 
 		echo "}";
