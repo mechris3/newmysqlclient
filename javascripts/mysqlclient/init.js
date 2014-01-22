@@ -4,6 +4,8 @@ dojo.require("dojox.layout.ContentPane");
 dojo.require("dijit.Menu");
 dojo.require("dijit.MenuItem");
 
+dojo.require("dijit.form.Select");
+
 dojo.require("dojo.dnd.Source")
 dojo.require("dojo.dnd.common");
 dojo.require("dojo.dnd.Container");
@@ -72,7 +74,8 @@ function initPage()
 										alert("Table");
 									}
 									if (item.entitytype=="field")
-									{
+									{										
+									
 										createFieldEditForm(item)
 									}
 									log(item);
@@ -85,7 +88,34 @@ function initPage()
 function kill(pId){ dijit.registry.forEach(function(widget,index,hash) { if(widget.id==pId) {widget.destroy();};});}
 function createFieldEditForm(pID)
 {
-	alert("Edit fiedl");
+	kill("selDataType");
+	// example from here for store
+	var ctlselDataType = dijit.form.Select({
+							"name":"selDataType", "id":"selDataType",
+							"style":{"width":"200px"} ,
+							options: [
+								{ value: "0",	label:"decimal"},
+								{ value: "1",	label:"tinyint"},
+								{ value: "2",	label:"smallint"},
+								{ value: "3",	label:"int"},
+								{ value: "4",	label:"float"},
+								{ value: "5",	label:"double"},
+								{ value: "7",	label:"timestamp"},
+								{ value: "8",	label:"bigint"},
+								{ value: "9",	label:"mediumint"},
+								{ value: "10",	label:"date"},
+								{ value: "11",	label:"time"},
+								{ value: "12",	label:"datetime"},
+								{ value: "13",	label:"year"},
+								{ value: "14",	label:"new date"},
+								{ value: "16",	label:"bit"},
+								{ value: "253",	label:"varchar"},
+								{ value: "254",	label:"char"},
+								{ value: "246",	label:"decimal"}
+									]							
+							}
+							,"dvDetails");
+										
 }
 function log(p) {console.log(p)}
 function createTree()
