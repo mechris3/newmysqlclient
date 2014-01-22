@@ -82,7 +82,7 @@ function initPage()
 							})
 	
  }
- 
+function kill(pId){ dijit.registry.forEach(function(widget,index,hash) { if(widget.id==pId) {widget.destroy();};});}
 function createFieldEditForm(pID)
 {
 	alert("Edit fiedl");
